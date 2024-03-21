@@ -7,7 +7,7 @@ const PORT = 9000;
 
 const imagesDir = path.join(__dirname, 'images');
 
-// Middleware to serve images
+// Middleware to serve individual images
 app.get('/images/:imageName', (req, res) => {
     const { imageName } = req.params;
     const imagePath = path.join(imagesDir, imageName);
@@ -23,7 +23,7 @@ app.get('/images/:imageName', (req, res) => {
             if (err) {
                 return res.status(500).send('Error reading the image');
             }
-            res.writeHead(200, {'Content-Type': 'image/jpeg'});
+            res.writeHead(200, { 'Content-Type': 'image/jpeg' });
             res.end(data);
         });
     });
@@ -35,8 +35,14 @@ app.get('/images', (req, res) => {
         if (err) {
             return res.status(500).send('Error reading images directory');
         }
+
         const images = files.filter(file => file.endsWith('.jpg'));
-        res.json(images);
+
+        // Generate HTML for image links
+        const imageLinks = images.map(image => `<a href="/images/${image}" target="_blank">${image}</a>`);
+
+        // Send HTML response with image links
+        res.send(`<html><body>${imageLinks.join('<br>')}</body></html>`);
     });
 });
 
