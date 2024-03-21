@@ -38,11 +38,39 @@ app.get('/images', (req, res) => {
 
         const images = files.filter(file => file.endsWith('.jpg'));
 
-        // Generate HTML for image links
-        const imageLinks = images.map(image => `<a href="/images/${image}" target="_blank">${image}</a>`);
+        // Generate HTML for image links with CSS styling
+        const imageLinks = images.map(image => `<a class="image-link" href="/images/${image}" target="_blank">${image}</a>`);
 
-        // Send HTML response with image links
-        res.send(`<html><body>${imageLinks.join('<br>')}</body></html>`);
+        // Send HTML response with image links and CSS
+        const htmlResponse = `
+            <html>
+                <head>
+                    <style>
+                        body {
+                            text-align: center;
+                        }
+                        h1 {
+                            margin-bottom: 20px;
+                        }
+                        .image-link {
+                            display: block;
+                            margin-bottom: 10px;
+                            text-decoration: none;
+                            color: #333;
+                            font-size: 16px;
+                            font-weight: bold;
+                        }
+                        .image-link:hover {
+                            color: #007bff;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>Image List</h1>
+                    ${imageLinks.join('')}
+                </body>
+            </html>`;
+        res.send(htmlResponse);
     });
 });
 

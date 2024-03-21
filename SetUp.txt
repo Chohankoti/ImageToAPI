@@ -1,1 +1,11 @@
-Require Installations:  npm install express path fs-extra
+Require Installations:  npm install express path fs-extra 
+
+npm install -g nodemon
+
+"scripts": {
+    "start": "nodemon index.js"
+  },
+
+
+  npm start
+
