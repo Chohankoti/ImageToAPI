@@ -3,10 +3,10 @@ const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
 
-app.use(cors());
-
 const app = express();
 const PORT = 9000;
+
+app.use(cors());
 
 const imagesDir = path.join(__dirname, 'images');
 
